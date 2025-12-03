@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Spin The Story</title>
+    <!-- Paste your full <style> section here (from the Home page) -->
+    <style>
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -3; 
+            opacity: 0.25; 
+        }
+
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+            padding: 0px;
+        }
+
+        .newspaper {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newspaper.condensed {
+            margin: -20px auto;
+            padding: 40px 20px;
+            max-width: 1200px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: -1;
+        }
+
+        .condensed-body {
+            margin-top: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #333;
+            text-align: justify;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .small-headline {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .headline-underline {
+            width: 80px;
+            height: 4px;
+            background-color: #333;
+            margin: 10px auto 0;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .masthead {
+            font-size: 3.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .date-info {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .lead-story {
+            border-right: 1px solid #ddd;
+            padding-right: 40px;
+        }
+
+        .headline {
+            font-size: 2.2rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        .subheadline {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .byline {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-text {
+            text-align: justify;
+            font-size: 1 rem;
+            line-height: 1.8;
+        }
+
+        .sidebar {
+            padding-left: 20px;
+        }
+        
+        .sidebar a {
+            color: #333; 
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .sidebar a:visited {
+            color: #333; 
+        }
+
+        .sidebar a:hover {
+            color: #000; 
+            text-decoration: underline; 
+        }
+        
+        .sidebar-story {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-headline {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .sidebar-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            border-top: 2px solid #333;
+            padding-top: 30px;
+        }
+
+        .column-story {
+            padding: 0 15px;
+        }
+
+        .column-story:not(:last-child) {
+            border-right: 1px solid #ddd;
+        }
+
+        .column-headline {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .column-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .drop-cap {
+            float: left;
+            font-size: 4rem;
+            line-height: 3rem;
+            padding-right: 8px;
+            padding-top: 4px;
+            font-weight: bold;
+        }
+
+        .spiral-video {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 4px solid black;
+            cursor: pointer;
+        }
+
+        .spiral-video:hover {
+            filter: brightness(0.6);
+            transition: brightness 0.2 ease;
+        }
+
+        .navbar {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            background-color: #333;
+            padding: 16px 24px;
+            color: white;
+            flex-wrap: wrap;
+        }
+
+        .nav-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px; /* space between links */
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .toggle-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        .site-footer {
+            background-color: #103011ff;
+            color: #eee;
+            padding: 40px 20px;
+            font-size: 0.95rem;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1 1 200px;
+            min-width: 200px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            margin: 0;
+            color: #A5D6A7;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                width: 100%;
+                flex-direction: column;
+            }
+            .nav-links {
+                display: flex;
+                gap: 16px;
+                flex-direction: column;
+                width: 100%;
+                background-color: #444;
+                padding: 10px 0;
+            }
+
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                text-align: right;
+                padding-right: 24px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+            .newspaper {
+                padding: 20px;
+            }
+
+            .masthead {
+                font-size: 2.5rem;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .lead-story {
+                border-right: none;
+                padding-right: 0;
+            }
+
+            .article-text {
+                columns: 1;
+            }
+
+            .bottom-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .column-story {
+                padding: 0;
+                border-right: none;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">Spin The Story</div>
+        <button class="toggle-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-container">
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="{% url 'posts:select' %}">Story Select</a>
+                <a href="/about">Generated Stories</a>
+            </div>
+        </div>
+    </nav>
+
+    <video autoplay muted loop playsinline class="background-video">
+        <source src="https://cdn.lux.gg/public/Spiral.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="newspaper">
+        <header class="header">
+            <h1 class="masthead">About The Project</h1>
+            <div class="date-info">Meet the creators and the exhibit</div>
+            <div class="price">Spin The Story | Blurred Realities</div>
+        </header>
+
+        <!-- Creator 1 Section -->
+        <div class="main-content" style="align-items: start;">
+            <article class="lead-story">
+                <h2 class="headline">Kelsey Swanson</h2>
+                <p class="subheadline">Creator of "Spin The Story"</p>
+                <div class="article-text">
+                    <p><span class="drop-cap">K</span>elsey Swanson (she/her) is a 26-year-old alumna of Michigan State University class of 2023, having studied biomedical laboratory diagnostics and neuroscience, completing two bachelor of science degrees, with intentions to pursue a career in medical clinical research studying neurogenetics and pediatric brain cancers. While studying at Michigan State, she worked as a Science Gallery Mediator and CoLaborator on two separate exhibitions. In her free time, you will find her watching Liverpool FC (You’ll Never Walk Alone) or the Detroit sports teams, or walking the beaches of Northern Michigan with her 5-year-old labradoodle, Anfield, hunting for the elusive Petoskey Stone.</p>
+                </div>
+            </article>
+
+            <aside class="sidebar">
+                <img src="https://via.placeholder.com/250x300.png?text=Kelsey+Swanson" alt="Kelsey Swanson" style="width:100%; border: 2px solid #333; border-radius: 8px;">
+            </aside>
+        </div>
+
+        <!-- Creator 2 Section -->
+        <div class="main-content" style="align-items: start;">
+            <article class="lead-story">
+                <h2 class="headline">Laith Miller</h2>
+                <p class="subheadline">Website Designer</p>
+                <div class="article-text">
+                    <p><span class="drop-cap">L</span>aith Miller, 25 (he/him), is an artist, designer, and aspiring educator. With a background in game design and technical art, he believes strongly in the educational power of art and technology. Laith worked as a Science Gallery Detroit Mediator for their first two exhibitions, Hustle and Depth. Having gained experience working on games such as the NBA 2k franchise, Laith now works as an independent artist while working towards earning his Masters in Education at University of Michigan Flint. Despite his interest in technology, he derives inspiration from being out in nature, especially in the woods and lakes in northern Michigan. 
+</p>
+                </div>
+            </article>
+
+            <aside class="sidebar">
+                <img src="https://via.placeholder.com/250x300.png?text=Laith+Miller" alt="Laith Miller" style="width:100%; border: 2px solid #333; border-radius: 8px;">
+            </aside>
+        </div>
+
+        <!-- Gallery / Exhibit Section -->
+        <div class="bottom-section" style="margin-top: 40px;">
+            <div class="column-story" style="grid-column: 1 / -1;">
+                <h3 class="column-headline">About "Blurred Realities"</h3>
+                <p>
+                    We immerse ourselves in fairy tales and science fiction, fully aware that some elements
+                    are pure fantasy. Yet, we bristle when we discover that a viral video was fabricated or
+                    that a striking photograph was generated by AI. Why do we so easily accept some
+                    fabrications while questioning others?
+                </p>
+                <p>
+                    Blurred Realities invites you to examine the dilemmas tied to disinformation and
+                    misinformation, artificial intelligence, and shifting perceptions of truth. This exhibition is
+                    not just about deception; it is about the ways our perceptions are shaped, guided, and
+                    sometimes manipulated. How do we determine what is real, what is fabricated, and
+                    what is designed to deceive?
+                </p>
+                <p>
+                    As technology increasingly influences our perspectives, it also amplifies biases,
+                    reshapes conversations, and reinforces divisions. In an era where trust is fragile, we
+                    must reconsider not just what we see, but how we see and understand. This exhibition
+                    challenges you to think critically, to question the narratives you accept, and to recognize
+                    the forces that shape your understanding of the world.
+                </p>
+                <p>
+                    As we mark the 250th anniversary of American democracy, these questions take on
+                    even greater urgency. A nation built on the ideals of informed debate and collective
+                    decision-making must grapple with how truth is constructed, contested, and controlled.
+                    Blurred Realities invites us to reflect on how we navigate this evolving
+                    landscape—individually and as a society—in pursuit of a more informed future.
+                    The exhibition is made possible through the generous support of the Michigan State University
+                    Federal Credit Union (MSUFCU). 
+                </p>
+                    <br><br>
+                <h3 class="column-headline">The Power of Bias in Shaping Reality</h3>
+                
+                <p>
+                Cognitive and social biases shape not only what we believe, but how we interpret
+                reality. We are naturally inclined to seek out and trust information that aligns with our
+                existing values and worldviews, a tendency known as confirmation bias. This
+                phenomenon can lead us to ignore, dismiss, or distrust new information that challenges
+                our beliefs, reinforcing our existing perspectives and influencing our capacity for
+                meaningful dialogue with others.
+                </p>
+                <p>
+                Technologies like social media and AI often amplify these biases. Algorithms
+                personalize content based on past behavior, surrounding us with ideas and opinions we
+                are more likely to agree with. Marketers, politicians, and influencers further leverage
+                these tendencies, crafting emotionally charged messages designed to resonate with
+                existing beliefs and keep us engaged. This ultimately creates filter bubbles in our online
+                engagement, where we rarely encounter opposing viewpoints, and our sense of truth
+                becomes increasingly shaped by systems designed to maximize attention, not
+                accuracy.
+                </p>
+                <p>
+                AI is also not exempt from bias. Because these models are trained with human-
+                generated data, they often reproduce the stereotypes and inequalities already present
+                in society. When left unchecked, these tools can reinforce systemic inequities, distort
+                public discourse, and influence our perceptions of the world under the guise of
+                objectivity.
+                </p>
+                <p>
+                As AI becomes more central to how we access information, it’s essential to question:
+                who and what shapes the results—and who stands to benefit?
+                </p>
+                    <br><br>
+                <h3 class="column-headline">Truth and Manipulation in a Digital Age</h3>
+                <p>
+                Social media transformed how we access information, offering new ways to learn,
+                connect, and explore the world. Yet, these platforms can just as easily be used to distort
+                the truth. With the growing sophistication of AI, it can be even more difficult to
+                distinguish a true story from what has been embellished or entirely fabricated.
+                Deepfakes, AI-generated images, and manipulated narratives can spread rapidly, often
+                without clear markers to indicate they are false.
+                </p>
+                <p>
+                Although some social media platforms introduced fact-checking labels or community
+                notes to slow the spread of misinformation, these efforts are fairly limited. Outside of our
+                own responsibility to fact check the information we encounter on social media, there are
+                few regulations preventing people from intentionally posting and spreading false
+                content.
+                </p>
+                <p>
+                Sometimes, this lack of focus on the truth is intentionally leveraged by individuals or
+                organizations to spark outrage and create confusion. These posts are then amplified by
+                recommendation algorithms and marketing that prioritizes engagement (likes, shares,
+                clicks), over accuracy. The more a post resonates emotionally or goes viral, the more
+                it’s promoted. This selective exposure reinforces what we already believe, making it
+                even harder to see diverse perspectives or evaluate information critically.
+                </p>
+                    <br><br>
+                <h3 class="column-headline">Reimagined Narratives</h3>
+                <p>
+                We constantly engage with fabrications—reading stories, playing video games, or
+                watching movies all require us to set aside what is real and temporarily accept a new
+                reality. These fictions can help us build empathy for perspectives and stories that are
+                not our own, ponder the future, and imagine the "what-if's" of the past. Even though we
+                know these experiences to be fictional, they can impact our lives in real ways and are
+                still grounded in the visions of the artists who created the works.
+                </p>
+                <p>
+                What happens when we begin to use AI to create these fictions? From reimagining
+                ancestral legacies to reminiscing about childhood memories, people are increasingly
+                using AI for the development of stories, memories, and reimagined worlds. As you'll see
+                throughout the exhibition, AI can be biased and flawed, so even intentionally using it to
+                generate fictional outputs creates a unique product - one that's been first conceptualized
+                by a person and then filtered through the lens of the AI model.
+                </p>
+                <p>
+                With the right prompts, these technologies can be used to question, reinterpret, and
+                reconfigure the stories we tell about ourselves, challenging dominant narratives,
+                amplifying voices, and speculating on alternate histories or futures. They may also
+                create content that feels unsettling, like a memory that is barely out of reach. Pieces like
+                this offer us the opportunity to contemplate the complex nature of creativity, truth,
+                technology, and what it means to engage in realities outside of our own.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@spinthestory.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p><a href="#">Instagram</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Credits</h4>
+                <p>Created by Kelsey Swanson<br>Website by Laith Miller</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("navLinks");
+            nav.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>

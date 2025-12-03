@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fill in the Blanks</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #103011ff;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+      font-size: 3rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 1;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 40px auto 0;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      color: #777777ff;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+
+    select:focus {
+      border-color: #3f51b5;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+    }
+
+    button {
+      background-color: #1f6321ff;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      display: block;
+      margin: 30px auto 0;
+    }
+
+    button:hover {
+      background-color: #1a551cff;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 16px 24px;
+      color: white;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px; /* space between links */
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .toggle-btn {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .spiral-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        opacity: 0.2; /* Adjust for subtlety */
+        pointer-events: none; /* Prevent interaction */
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #444;
+        padding: 20px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .toggle-btn {
+        display: block;
+      }
+    }
+  </style>
+</head>
+    <video src="https://cdn.lux.gg/public/Spiral.mp4" muted autoplay loop class="spiral-video"></video>
+<body>
+   <nav class="navbar">
+    <div class="brand">Spin The Story</div>
+    <button class="toggle-btn" onclick="toggleMenu()">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="{% url 'posts:select' %}">Story Select</a>
+      <a href="{% url 'posts:generated_story' %}">Generated Stories</a>
+    </div>
+  </nav>
+  <header>Fill In the Blanks</header>
+  
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.errors %}
+            <small style="color: red;">{{ field.errors.0 }}</small>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+   <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>

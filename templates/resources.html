@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | Spin The Story</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -3;
+            opacity: 0.25;
+        }
+
+        .navbar {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            background-color: #333;
+            padding: 16px 24px;
+            color: white;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+        }
+
+        .nav-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .toggle-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        .newspaper {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .masthead {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .date-info {
+            font-size: 1.4rem;
+            color: #666;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .headline {
+            font-size: 2rem;
+            font-weight: bold;
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .resource-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .resource-list li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .resource-list a {
+            color: #2a4c9e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .resource-list a:hover {
+            text-decoration: underline;
+        }
+
+        .site-footer {
+            background-color: #103011ff;
+            color: #eee;
+            padding: 40px 20px;
+            font-size: 0.95rem;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1 1 200px;
+            min-width: 200px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            margin: 0;
+            color: #A5D6A7;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 16px;
+                width: 100%;
+                background-color: #444;
+                padding: 10px 0;
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+
+            .masthead {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">Spin The Story</div>
+        <button class="toggle-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-container">
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="{% url 'posts:select' %}">Story Select</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </div>
+    </nav>
+
+    <video autoplay muted loop playsinline class="background-video">
+        <source src="https://cdn.lux.gg/public/Spiral.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="newspaper">
+        <header class="header">
+            <h1 class="masthead">Resources & Fact-Checking</h1>
+            <div class="date-info">Learn how to spot, verify, and challenge misinformation</div>
+        </header>
+
+        <section class="section">
+            <h2 class="headline">How to Spot and Combat “Fake News”</h2>
+            <ul class="resource-list">
+                <li><a href="https://www.factcheck.org/2016/11/how-to-spot-fake-news/" target="_blank">How to Spot Fake News – FactCheck.org (2016)</a></li>
+                <li><a href="https://www.factcheck.org/2025/04/how-to-combat-misinformation/" target="_blank">How to Combat Misinformation – FactCheck.org (2025)</a></li>
+                <li><a href="https://www.factcheck.org/2017/07/websites-post-fake-satirical-stories/" target="_blank">Websites That Post Fake or Satirical Stories – FactCheck.org (2017)</a></li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="headline">Story 1: Polling Panic</h2>
+            <ul class="resource-list">
+                <li><strong>Debunking Articles:</strong></li>
+                <li><a href="https://www.dominionvoting.com/election-2020-setting-the-record-straight-antrim-county-michigan/" target="_blank">Dominion Voting: Setting the Record Straight (Antrim County)</a></li>
+                <li><a href="https://www.politifact.com/factchecks/2024/nov/05/instagram-posts/no-dominion-voting-systems-didnt-say-that-michigan/" target="_blank">PolitiFact: No, Dominion Voting Systems Didn’t Say That About Michigan</a></li>
+                <li><strong>Learn More:</strong></li>
+                <li><a href="https://www.brennancenter.org/election-misinformation" target="_blank">Brennan Center: Election Misinformation Resources</a></li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="headline">Story 2: Unchecked Aggression</h2>
+            <ul class="resource-list">
+                <li><strong>Debunking Articles:</strong></li>
+                <li><a href="https://www.factcheck.org/2025/02/trumps-false-and-misleading-ukraine-claims/" target="_blank">FactCheck.org: Trump’s False and Misleading Ukraine Claims</a></li>
+                <li><strong>Learn More:</strong></li>
+                <li><a href="https://international-review.icrc.org/articles/protecting-civilians-from-disinformation-during-armed-conflict-914" target="_blank">ICRC: Protecting Civilians from Disinformation During Armed Conflict</a></li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="headline">Story 3: Unnatural Disaster</h2>
+            <ul class="resource-list">
+                <li><strong>Debunking Articles:</strong></li>
+                <li><a href="https://www.factcheck.org/2024/10/baseless-claims-proliferate-on-hurricanes-and-weather-modification/" target="_blank">FactCheck.org: Baseless Claims About Weather Modification</a></li>
+                <li><strong>Learn More:</strong></li>
+                <li><a href="https://www.noaa.gov/news/fact-check-debunking-weather-modification-claims" target="_blank">NOAA: Debunking Weather Modification Claims</a></li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="headline">Story 4: Bad Influence</h2>
+            <ul class="resource-list">
+                <li><strong>Debunking Articles:</strong></li>
+                <li><a href="https://www.factcheck.org/2025/04/hits-and-misses-in-rfk-jr-s-comments-on-food-dyes/" target="_blank">FactCheck.org: RFK Jr.’s Comments on Food Dyes</a></li>
+                <li><strong>Learn More:</strong></li>
+                <li><a href="https://www.who.int/news-room/fact-sheets/detail/food-additives" target="_blank">WHO: Food Additives Fact Sheet</a></li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="headline">Story 7: Technology Turmoil</h2>
+            <ul class="resource-list">
+                <li><strong>Debunking Articles:</strong></li>
+                <li><a href="https://www.bbc.co.uk/newsround/66796495" target="_blank">BBC Newsround: AI and Deepfake Awareness</a></li>
+                <li><a href="https://www.nytimes.com/2024/04/08/technology/deepfake-ai-nudes-westfield-high-school.html" target="_blank">NYTimes: Deepfake Scandal and Digital Safety</a></li>
+                <li><a href="https://joanganzcooneycenter.org/2024/06/05/why-children-are-susceptible-to-online-misinformation/" target="_blank">Joan Ganz Cooney Center: Children & Online Misinformation</a></li>
+                <li><a href="https://www.unicef.org/parenting/child-development/babies-screen-time" target="_blank">UNICEF: Babies and Screen Time</a></li>
+                <li><strong>Learn More:</strong></li>
+                <li><a href="https://www.hopkinsmedicine.org/health/wellness-and-prevention/social-media-and-mental-health-in-children-and-teens" target="_blank">Johns Hopkins: Social Media & Mental Health in Teens</a></li>
+                <li><a href="https://www.hopkinsmedicine.org/health/wellness-and-prevention/screen-time-side-effects-in-kids-and-teens" target="_blank">Johns Hopkins: Screen Time Side Effects</a></li>
+                <li><a href="https://www.kff.org/mental-health/a-look-at-state-efforts-to-ban-cellphones-in-schools-and-implications-for-youth-mental-health/" target="_blank">KFF: Cellphones in Schools & Youth Mental Health</a></li>
+                <li><a href="https://newslit.org/newsroom/press-release/study-american-teens-awash-in-conspiracy-theories-cynical-about-news-media/" target="_blank">News Literacy Project: Teens and Conspiracy Beliefs</a></li>
+            </ul>
+        </section>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@spinthestory.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p><a href="#">Instagram</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Credits</h4>
+                <p>Created by Kelsey Swanson<br>Website by Laith Miller</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("navLinks");
+            nav.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>

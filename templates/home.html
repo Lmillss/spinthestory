@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin The Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .cta-wrapper {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .cta-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            background-color: rgba(46, 125, 50, 0);
+            color: white;
+            padding: 16px 32px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            z-index: 2;
+        }
+
+        .cta-button:hover {
+            background-color: rgba(31, 99, 33, 0);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -3; 
+            opacity: 0.25; 
+        }
+
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+            padding: 0px;
+        }
+
+        .newspaper {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newspaper.condensed {
+            margin: -20px auto;
+            padding: 40px 20px;
+            max-width: 1200px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: -1;
+        }
+
+        .condensed-body {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            line-height: 1.7;
+            color: #333;
+            text-align: justify;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .small-headline {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .headline-underline {
+            width: 80px;
+            height: 4px;
+            background-color:  #333;
+            margin: 10px auto 0;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .masthead {
+            font-size: 3.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .date-info {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .lead-story {
+            border-right: 1px solid #ddd;
+            padding-right: 40px;
+        }
+
+        .headline {
+            font-size: 2.2rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        .subheadline {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .byline {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-text {
+            text-align: justify;
+            font-size: 1 rem;
+            line-height: 1.8;
+        }
+
+        .sidebar {
+            padding-left: 20px;
+        }
+        
+        .sidebar a {
+            color: #333; 
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        .sidebar a:visited {
+            color: #333; 
+        }
+
+        .sidebar a:hover {
+            color: #000; 
+            text-decoration: underline; 
+        }
+        
+        .sidebar-story {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-headline {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .sidebar-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            border-top: 2px solid #333;
+            padding-top: 30px;
+        }
+
+        .column-story {
+            padding: 0 15px;
+        }
+
+        .column-story:not(:last-child) {
+            border-right: 1px solid #ddd;
+        }
+
+        .column-headline {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .column-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .drop-cap {
+            float: left;
+            font-size: 4rem;
+            line-height: 3rem;
+            padding-right: 8px;
+            padding-top: 4px;
+            font-weight: bold;
+        }
+
+        .spiral-video {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 6px solid #2E7D32; 
+            cursor: pointer;
+        }
+
+        .spiral-video:hover {
+            filter: brightness(0.6);
+            transition: brightness 0.2 ease;
+        }
+
+        .navbar {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            background-color: #333;
+            padding: 16px 24px;
+            color: white;
+            flex-wrap: wrap;
+        }
+
+        .nav-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px; /* space between links */
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .toggle-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        .site-footer {
+            background-color: #103011ff;
+            color: #eee;
+            padding: 40px 20px;
+            font-size: 0.95rem;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1 1 200px;
+            min-width: 200px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            margin: 0;
+            color: #A5D6A7;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .green-banner {
+            background-color: #1f6321ff;
+            border-top: 4px solid #2E7D32;
+            border-bottom: 4px solid #2E7D32;
+            padding: 30px 20px;
+            margin: 40px 0;
+            text-align: center;
+            color: #e6e6e6ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .condensed-body-green {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            line-height: 1.7;
+            color: #e6e6e6ff;
+            text-align: justify;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .headline-underline-green {
+            width: 80px;
+            height: 4px;
+            background-color:  #e6e6e6ff;
+            margin: 10px auto 0;
+        }
+
+        .header-green {
+            text-align: center;
+            border-bottom: 3px solid #e6e6e6ff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+
+        @media (max-width: 768px) {
+            .nav-container {
+                width: 100%;
+                flex-direction: column;
+            }
+            .nav-links {
+                display: flex;
+                gap: 16px;
+                flex-direction: column;
+                width: 100%;
+                background-color: #444;
+                padding: 10px 0;
+            }
+
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                text-align: right;
+                padding-right: 24px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+            .newspaper {
+                border-top: 6px solid #2E7D32;
+                padding: 20px;
+            }
+
+            .masthead {
+                font-size: 2.5rem;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .lead-story {
+                background-color: #F0FFF0;
+                border-right: none;
+                padding-right: 0;
+            }
+
+            .article-text {
+                columns: 1;
+            }
+
+            .bottom-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .column-story {
+                padding: 0;
+                border-right: none;
+            }
+            
+
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand">Spin The Story</div>
+        <button class="toggle-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-container">
+            <div class="nav-links" id="navLinks">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="{% url 'posts:select' %}">Story Select</a>
+            <a href="{% url 'posts:generated_story' %}">Generated Stories</a>
+            </div>
+        </div>
+    </nav>
+
+    <video autoplay muted loop playsinline class="background-video">
+        <source src="https://cdn.lux.gg/public/Spiral.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="newspaper">
+        <header class="header">
+            <h1 class="masthead">Spin The Story</h1>
+            <div class="date-info">A "Fake News" Adventure</div>
+            <div class="price">Created By Kelsey Swasnon Website Design By Laith Miller</div>
+        </header>
+
+        <div class="main-content">
+            <article class="lead-story">
+                <h2 class="headline">Explore How Easily The Tone And Meaning of a Story Can be Changed</h2>
+                <p class="subheadline">Click the Button Bellow To Start Spinning Your Own Story</p>
+                <div class="article-text">
+                    <div class="cta-wrapper">
+                        <video src="https://cdn.lux.gg/public/clickhere.mp4" muted autoplay loop class="spiral-video"></video>
+                        <a href="/posts/" class="cta-button"></a>
+                    </div>
+                </div>
+            </article>
+            
+            <aside class="sidebar">
+                <div class="sidebar-story">
+                    <a href="/about"><h3 class="sidebar-headline">About</h3></a>
+                    <p class="sidebar-text">Learn more about the artists who created spin the story and about the exhibit it is part of, "Blurred Realities". </p>
+                </div>
+
+                <div class="sidebar-story">
+                    <a href="/resources"><h3 class="sidebar-headline">Resources</h3></a>
+                    <p class="sidebar-text">Find resources on how you can better spot and protect yourself from missinformation and fake news.</p>
+                </div>
+
+                <div class="sidebar-story">
+                    <a href="{% url 'posts:generated_story' %}"><h3 class="sidebar-headline">Generated Stories</h3></a>
+                    <p class="sidebar-text">Just as click-ability and virality drives the algorithms that control our feed, these generated stories are constantly updated with the most popular words people are using to spin their own stories.</p>
+                </div>
+            </aside>
+        </div>
+
+    </div>
+
+    <div class="green-banner">
+        <header class="header-green">
+            <h2 class="masthead small-headline">What Is "Spin The Story"</h2>
+            <div class="headline-underline-green"></div>
+        </header>
+            <div class="condensed-body-green">
+                <p>“Fake news” can be created by humans, either domestically or abroad, or by artificial intelligence models feeding off of content that it deciphers online, to then be known- 
+                    or unknowingly disseminated in society. When misinformation runs rampant, going unchecked on social media, it becomes incredibly challenging to parse what is factual from what is 
+                    incorrect or has been disproven. Furthermore, when those we elect to govern us continue to propagate these lies, we can fall victim to authority bias, deepening the divides in our country. 
+                    “Spin The Story” uses the famous “Mad Libs” children’s word game format to demonstrate how simple it is to create dangerous pieces of “fake news”, as well as include real examples 
+                    of similar pieces of misinformation found in the media. It also provides resources on how to “beat” misinformation to improve media literacy and responsibility online.
+                </p>
+            </div>
+    </div>
+
+   
+
+        <div class="newspaper condensed">
+        <header class="header">
+            <h2 class="masthead small-headline">Blurred Realities</h2>
+            <div class="headline-underline"></div>
+        </header>
+        <div class="condensed-body">
+            <p>We immerse ourselves in fairy tales and science fiction, fully aware that some elements
+            are pure fantasy. Yet, we bristle when we discover that a viral video was fabricated or
+            that a striking photograph was generated by AI. Why do we so easily accept some
+            fabrications while questioning others?</p>
+
+            <p>Blurred Realities invites you to examine the dilemmas tied to disinformation and
+            misinformation, artificial intelligence, and shifting perceptions of truth. This exhibition is
+            not just about deception; it is about the ways our perceptions are shaped, guided, and
+            sometimes manipulated. How do we determine what is real, what is fabricated, and
+            what is designed to deceive?</p>
+
+            <p>As technology increasingly influences our perspectives, it also amplifies biases,
+            reshapes conversations, and reinforces divisions. In an era where trust is fragile, we
+            must reconsider not just what we see, but how we see and understand. This exhibition
+            challenges you to think critically, to question the narratives you accept, and to recognize
+            the forces that shape your understanding of the world.</p>
+
+            <p>As we mark the 250th anniversary of American democracy, these questions take on
+            even greater urgency. A nation built on the ideals of informed debate and collective
+            decision-making must grapple with how truth is constructed, contested, and controlled.
+            Blurred Realities invites us to reflect on how we navigate this evolving
+            landscape—individually and as a society—in pursuit of a more informed future.
+            The exhibition is made possible through the generous support of the Michigan State University
+            Federal Credit Union (MSUFCU).</p>
+        </div>
+    </div>
+    
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Email: info@spinthestory.com</p>
+            <p>Phone: (123) 456-7890</p>
+            </div>
+            <div class="footer-section">
+            <h4>Follow Us</h4>
+            <p><a href="#">Instagram</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a></p>
+            </div>
+            <div class="footer-section">
+            <h4>Credits</h4>
+            <p>Created by Kelsey Swanson<br>Website by Laith Miller</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

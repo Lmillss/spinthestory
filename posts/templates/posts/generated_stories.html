@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ form.name.value }}'s Report</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .article-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.4em;
+            color: #222;
+            text-align: center;
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 800px; 
+            height: 4px;
+            background-color: #000000ff;
+            margin: 0.4em auto 0 auto; 
+            border-radius: 2px;
+        }
+
+        p {
+            margin: 1.2em 0;
+            font-size: 1.65em;
+        }
+
+        a {
+            color: #2a4c9e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .byline {
+            font-size: 0.95em;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+
+        .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 16px 24px;
+        color: white;
+        }
+
+        .brand {
+        font-size: 1.5rem;
+        }
+
+        .nav-links {
+        display: flex;
+        gap: 40px; /* space between links */
+        justify-content: flex-end;
+        }
+
+        .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        }
+
+        .toggle-btn {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+        }
+
+        .spiral-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.2; /* Adjust for subtlety */
+            pointer-events: none; /* Prevent interaction */
+        }
+
+        .image-placeholder-wrap {
+            float: right;
+            width: 300px;
+            margin: 0 0 20px 30px; 
+            margin-top: 1.5em;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            padding-top: 100%; 
+            background-color: #ddd;
+            border: 2px dashed #aaa;
+            position: relative;
+            text-align: center;
+            color: #666;
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        .image-placeholder::before {
+            content: "Image Coming Soon...";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .email-share-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .email-share-container h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .email-share-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .email-share-container input[type="email"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 16px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .email-share-container button {
+            padding: 12px 24px;
+            background-color: #2a4c9e;
+            color: white;
+            border: none;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .email-share-container button:hover {
+            background-color: #1e367a;
+        }
+
+         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #444;
+                padding: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+         }
+    </style>
+</head>
+    <video src="https://cdn.lux.gg/public/Spiral.mp4" muted autoplay loop class="spiral-video"></video>
+<body>
+    <nav class="navbar">
+        <div class="brand">Spin The Story</div>
+        <button class="toggle-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="{% url 'posts:select' %}">Story Select</a>
+        <a href="/about">Generated Stories</a>
+        </div>
+    </nav>
+    <div class="article-container">
+        <h1>{{form.emotion_1}} on Election Night!</h1>
+        <div class="image-placeholder-wrap">
+            <div class="image-placeholder"></div>
+        </div>
+
+        <p>
+            Just as we thought that our night at the ballot boxes
+            could not get any more {{form.adjective_1}}, we're taking in news from {{form.US_state}} 
+            that {{form.number_1}} voters have {{form.past_tense_verb_1}} outside of polling locations
+            in their hometowns. These {{form.US_state}} citizens have seen on 
+            {{form.social_media}} and have credible reason to believe that {{form.number_2}} 
+            ballot certification machines have been {{form.past_tense_verb_2}} by the 
+            {{form.political_organization_1}}, therefore, results should not be certified until the ballots have been 
+            manually counted. They have come to the conclusion that the only way for the {{form.adjective_2}} 
+            results of the election to be certified are through these means. Contrary to what the 
+            {{form.group_of_people}} have told the media, these citizens know that the 
+            {{form.political_organization_2}} has been attempting to cover this up, by {{form.verb_ing}} the voices of 
+            the {{form.past_tense_emotion}} people. We spoke to a concerned voter, {{form.name}}, {{form.age}}, 
+            who told us that immigration {{form.political_issue}} will be the downfall of this 
+            {{form.Adjective_3}} nation, and this {{form.Adjective_4}} election will be just the start!
+        </p>
+
+        <p><a href="story_1">← Back to fill in the blanks</a></p>
+    </div>
+
+    <div class="email-share-container">
+        <h2>Send This Story to Your Email</h2>
+        <form action="{% url 'posts:send_email_url' %}" method="post">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
+
+

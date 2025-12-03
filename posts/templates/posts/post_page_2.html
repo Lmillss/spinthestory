@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ form.name.value }}'s Report</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .article-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.4em;
+            color: #222;
+            text-align: center;
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 800px; 
+            height: 4px;
+            background-color: #000000ff;
+            margin: 0.4em auto 0 auto; 
+            border-radius: 2px;
+        }
+
+        p {
+            margin: 1.2em 0;
+            font-size: 1.65em;
+        }
+
+        a {
+            color: #2a4c9e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .byline {
+            font-size: 0.95em;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
+
+        .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 16px 24px;
+        color: white;
+        }
+
+        .brand {
+        font-size: 1.5rem;
+        }
+
+        .nav-links {
+        display: flex;
+        gap: 40px; /* space between links */
+        justify-content: flex-end;
+        }
+
+        .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        }
+
+        .toggle-btn {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+        }
+
+        .spiral-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.2; /* Adjust for subtlety */
+            pointer-events: none; /* Prevent interaction */
+        }
+
+        .image-placeholder-wrap {
+            float: right;
+            width: 300px;
+            margin: 0 0 20px 30px; 
+            margin-top: 1.5em;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            padding-top: 100%; 
+            background-color: #ddd;
+            border: 2px dashed #aaa;
+            position: relative;
+            text-align: center;
+            color: #666;
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        .image-placeholder::before {
+            content: "Image Coming Soon...";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .email-share-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .email-share-container h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .email-share-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .email-share-container input[type="email"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 16px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .email-share-container button {
+            padding: 12px 24px;
+            background-color: #2a4c9e;
+            color: white;
+            border: none;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .email-share-container button:hover {
+            background-color: #1e367a;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .story-button {
+            display: inline-block;
+            background-color: #1f6321ff;
+            color: white;
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .story-button:hover {
+            background-color: #1a551cff;
+            transform: translateY(-2px);
+        }
+
+         @media (max-width: 768px) {
+            .button-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #444;
+                padding: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+         }
+    </style>
+</head>
+    <video src="https://cdn.lux.gg/public/Spiral.mp4" muted autoplay loop class="spiral-video"></video>
+<body>
+    <nav class="navbar">
+        <div class="brand">Spin The Story</div>
+        <button class="toggle-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="{% url 'posts:select' %}">Story Select</a>
+        <a href="{% url 'posts:generated_story' %}">Generated Stories</a>
+        </div>
+    </nav>
+    <div class="article-container">
+        <h1>Invasion in {{form.country_1}}!</h1>
+        <div class="image-placeholder-wrap">
+            <div class="image-placeholder"></div>
+        </div>
+
+        <p>
+            Breaking news coming from {{form.country_1}} overnight: the {{form.political_organization}} from {{form.country_2}} have breached the borders in the twilight hours of the night. 
+            This comes after a back-and-forth engagement between the two nation’s leaders on {{form.social_media}} over the past few weeks, with {{form.country_2}} claiming that {{form.country_1}} 
+            has been breaking trade agreements over rights to {{form.product}} in the border region. One such statement included a claim, coming from the {{form.government_role}} of {{form.country_2}}, 
+            that the leader of {{form.country_1}} is a {{form.endearment}}, failing to provide their citizens with their basic daily {{form.noun}}. After attempts to make peace have failed, {{form.country_2}} 
+            has resulted in all-out war, much to the dismay of its citizens, many of them being {{form.group_of_people}}, fearing for their {{form.plural_noun}}. Most importantly, and of considerable interest to outside 
+            nations, is the threat of {{form.weapon}} being unleashed upon defenseless citizens, thus causing a humanitarian crisis unparalleled in history. One such citizen, {{form.name_1}} 
+            from {{form.country_2}}, is worried that their oldest child, {{form.name_2}}, may be sent to fight against their will, despite claims from the leader of {{form.country_2}} that only 
+            those who volunteer will see battle.
+        </p>
+
+        <div class="button-row">
+            <a href="story_2" class="story-button">← Back to Fill in the Blanks</a>
+            <a href="/resources" class="story-button">View Related Resources →</a>
+        </div>
+    </div>
+
+    <div class="email-share-container">
+        <h2>Send This Story to Your Email</h2>
+        <form action="{% url 'posts:send_email_url' %}" method="post">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
+
+
