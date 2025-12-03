@@ -23,5 +23,5 @@ urlpatterns = [
     path('', views.homepage),
     path('about/', views.about),
     path('resources/', views.resources),
-    path('posts/', include('posts.urls'))
+    path('stories/', include('posts.urls'))
 ]
