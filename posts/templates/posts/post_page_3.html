@@ -184,6 +184,33 @@
             background-color: #1e367a;
         }
 
+        .article-video {
+            float: right;
+            width: 320px;
+            margin: 1.2em 0 1.5em 30px;;
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .article-video video {
+            width: 100%;
+            display: block;
+        }
+
+        .article-video figcaption {
+            font-size: 0.9em;
+            color: #555;
+            font-style: italic;
+            padding: 8px 10px;
+            background: #fafafa;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            line-height: 1.4;
+        }
+
         .button-row {
             display: flex;
             justify-content: center;
@@ -222,7 +249,11 @@
                 background-color: #444;
                 padding: 20px;
             }
-
+            .article-video {
+                float: none;
+                width: 100%;
+                margin: 20px 0;
+            }
             .nav-links.active {
                 display: flex;
             }
@@ -247,9 +278,13 @@
     </nav>
     <div class="article-container">
         <h1>{{form.natural_disaster|title}} in South Carolina Leaves Town Reeling, Citizens Asking Questions.</h1>
-        <div class="image-placeholder-wrap">
-            <div class="image-placeholder"></div>
-        </div>
+        <figure class="article-video">
+            <video autoplay muted loop playsinline>
+                <source src="https://cdn.lux.gg/public/gnome.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <figcaption>Photgraphed damage of {{form.natural_disaster}}</figcaption>
+        </figure>
 
         <p>
             Many residents of Gordon’s Ridge, South Carolina are calling their representatives today, in turmoil

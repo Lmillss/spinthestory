@@ -184,6 +184,33 @@
             background-color: #1e367a;
         }
 
+        .article-video {
+            float: right;
+            width: 320px;
+            margin: 1.2em 0 1.5em 30px;;
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .article-video video {
+            width: 100%;
+            display: block;
+        }
+
+        .article-video figcaption {
+            font-size: 0.9em;
+            color: #555;
+            font-style: italic;
+            padding: 8px 10px;
+            background: #fafafa;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            line-height: 1.4;
+        }
+
         .button-row {
             display: flex;
             justify-content: center;
@@ -222,7 +249,11 @@
                 background-color: #444;
                 padding: 20px;
             }
-
+            .article-video {
+                float: none;
+                width: 100%;
+                margin: 20px 0;
+            }
             .nav-links.active {
                 display: flex;
             }
@@ -247,9 +278,13 @@
     </nav>
     <div class="article-container">
         <h1>Illegal {{ form.sporting_event|title }} Gambling Ring Connections Drawn Between Local Gardening Store, {{ form.government_role|title }} of {{ form.monarchal_country|title }}.</h1>
-        <div class="image-placeholder-wrap">
-            <div class="image-placeholder"></div>
-        </div>
+        <figure class="article-video">
+            <video autoplay muted loop playsinline>
+                <source src="https://cdn.lux.gg/public/gamble.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <figcaption>Garden Gamble Ring Uncovered</figcaption>
+        </figure>
 
         <p>
             After undergoing a thorough investigation from federal and local authorities, the owners of the Garden of Weedin’ store here in Willowmere, {{ form.US_state }} have been arrested today. This comes after receiving heavy scrutiny following an anonymous tip from a town resident, who requested to remain anonymous, about an illegal {{ form.sporting_event }} gambling ring run by the owners, {{ form.name_1 }} and {{ form.name_2 }} Martinson.

@@ -184,6 +184,33 @@
             background-color: #1e367a;
         }
 
+        .article-video {
+            float: right;
+            width: 320px;
+            margin: 1.2em 0 1.5em 30px;;
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .article-video video {
+            width: 100%;
+            display: block;
+        }
+
+        .article-video figcaption {
+            font-size: 0.9em;
+            color: #555;
+            font-style: italic;
+            padding: 8px 10px;
+            background: #fafafa;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            line-height: 1.4;
+        }
+
         .button-row {
             display: flex;
             justify-content: center;
@@ -214,6 +241,11 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 16px;
+            }
+            .article-video {
+                float: none;
+                width: 100%;
+                margin: 20px 0;
             }
             .nav-links {
                 display: none;
@@ -247,9 +279,13 @@
     </nav>
     <div class="article-container">
         <h1>Invasion in {{form.country_1}}!</h1>
-        <div class="image-placeholder-wrap">
-            <div class="image-placeholder"></div>
-        </div>
+        <figure class="article-video">
+            <video autoplay muted loop playsinline>
+                <source src="https://cdn.lux.gg/public/war.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <figcaption>{{form.government_role}} of {{form.country_2}} denounces {{form.country_1}}</figcaption>
+        </figure>
 
         <p>
             Breaking news coming from {{form.country_1}} overnight: the {{form.political_organization}} from {{form.country_2}} have breached the borders in the twilight hours of the night. 
