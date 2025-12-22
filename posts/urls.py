@@ -15,5 +15,5 @@ urlpatterns = [
     path('page', views.post_page, name= "page"),
     path('send-email/', views.send_email_url, name='send_email_url'),
     path('polling_panic/<str:idname>/', views.fillin_detail_view, name='fillin_detail'),
-    path('generated-story', views.fill_in_blanks_1_generated, name='generated_story')
+    path('generated-story', views.fill_in_blanks_generated, name='generated_story')
 ]
