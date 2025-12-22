@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import fillInBlanks_1
+from .models import fillInBlanks_1, fillInBlanks_2, fillInBlanks_3, fillInBlanks_4, fillInBlanks_5, fillInBlanks_6, fillInBlanks_7, fillInBlanks_8
 from . import forms
 from django.http import HttpResponse
 from django.db.models import Count
@@ -35,27 +35,180 @@ def fill_in_blanks_1(request):
         form = forms.FillInBlanksForm()
     return render(request, 'posts/story_1.html', {'form': form })
 
-def fill_in_blanks_1_generated(request):
-    fields = [
+def most_common(model, field):
+    return(
+        model.objects
+        .values(field)
+        .annotate(c=Count(field))
+        .order_by('-c')
+        .first()
+    )
+
+def fill_in_blanks_generated(request):
+    stories = []
+
+    story1_fields = [
         'emotion_1', 'adjective_1', 'US_state', 'number_1', 'past_tense_verb_1',
         'social_media', 'number_2', 'past_tense_verb_2', 'political_organization_1',
         'adjective_2', 'group_of_people', 'political_organization_2', 'verb_ing',
         'past_tense_emotion', 'name', 'age', 'political_issue', 'Adjective_3', 'Adjective_4'
     ]
 
-    common_answers = {}
+    story1_values = {}
+    for field in story1_fields:
+        result = most_common(fillInBlanks_1, field)
+        story1_values[field] = result[field] if result else "--"
+    
+    stories.append({
+        "id": 1,
+        "title": f"{story1_values['emotion_1']} on Election Night!",
+        "values": story1_values,
+        })
+    
+    story2_fields = [
+        'country_1','country_2', 'political_organization', 'social_media', 'product',
+        'government_role', 'endearment', 'noun', 'group_of_people', 'plural_noun',
+        'weapon', 'name_1', 'name_2'
+    ]
 
-    for field in fields:
-        qs = fillInBlanks_1.objects.values(field).annotate(count=Count(field)).order_by('-count')
-        for item in qs:
-            val = item[field]
-            if val:
-                common_answers[field] = val
-                break
-        else:
-            common_answers[field] = None
+    story2_values = {}
+    for field in story2_fields:
+        result = most_common(fillInBlanks_2, field)
+        story2_values[field] = result[field] if result else "--"
+    
+    stories.append({
+        "id": 2,
+        "title": f"Invasion in {story2_values['country_1']}!",
+        "values": story2_values,
+        })
+    
+    story3_fields = [
+    'natural_disaster',
+    'feeling',
+    'movement_1',
+    'movement_2',
+    'number',
+    'farm_animal',
+    'chain',
+    'government_agency',
+    'technology',
+    'non_profit_agency',
+    'adjective',
+    'industry',
+    'political_organization'
+    ]
 
-    return render(request, 'posts/generated_stories.html', {'form': common_answers})
+    story3_values = {}
+    for field in story3_fields:
+        result = most_common(fillInBlanks_3, field)
+        story3_values[field] = result[field] if result else "--"
+
+    stories.append({
+        "id": 3,
+        "title": f"{story3_values['natural_disaster'].title()} in South Carolina Leaves Town Reeling, Citizens Asking Questions.",
+        "values": story3_values,
+    })
+
+    story4_fields = [
+    'sport',
+    'brand',
+    'feeling',
+    'year',
+    'event',
+    'medical_provider',
+    'number',
+    'media_company',
+    'disease_1',
+    'disease_2',
+    'city'
+    ]
+
+    story4_values = {}
+    for field in story4_fields:
+        result = most_common(fillInBlanks_4, field)
+        story4_values[field] = result[field] if result else "--"
+
+    stories.append({
+        "id": 4,
+        "title": f"{story4_values['sport'].title()} Star, Zack “The Snack” Richards Diagnosed With Essential Tremor; Is {story4_values['brand'].title()} To Blame?",
+        "values": story4_values,
+    })
+    story5_fields = [
+    'sporting_event',
+    'government_role',
+    'monarchal_country',
+    'US_state',
+    'name_1',
+    'name_2',
+    'vegetable',
+    'ex_monarchy',
+    'social_media_1',
+    'social_media_2'
+    ]
+
+    story5_values = {}
+    for field in story5_fields:
+        result = most_common(fillInBlanks_5, field)
+        story5_values[field] = result[field] if result else "--"
+
+    stories.append({
+        "id": 5,
+        "title": (
+            f"Illegal {story5_values['sporting_event'].title()} Gambling Ring Connections Drawn Between "
+            f"Local Gardening Store, {story5_values['government_role'].title()} of "
+            f"{story5_values['monarchal_country'].title()}."
+        ),
+        "values": story5_values,
+    })
+
+    story6_fields = [
+    'emotion',
+    'name_1',
+    'number_3',
+    'US_state',
+    'Fraternity',
+    'non_profit_agency',
+    'number_1',
+    'number_2',
+    'name_2',
+    'college_major'
+    ]
+
+    story6_values = {}
+    for field in story6_fields:
+        result = most_common(fillInBlanks_6, field)
+        story6_values[field] = result[field] if result else "--"
+
+    stories.append({
+        "id": 6,
+        "title": f"Fraternity members hold a charity run, {story6_values['emotion']} the senior community about the splash of color.",
+        "values": story6_values,
+    })
+
+    story8_fields = [   
+    'emotion',
+    'US_State_Capital',
+    'last_name',
+    'past_tense_emotion',
+    'social_media',
+    'school_class',
+    'school_mascot',
+    'name',
+    'lawn_game'
+    ]
+
+    story8_values = {}
+    for field in story8_fields:
+        result = most_common(fillInBlanks_8, field)
+        story8_values[field] = result[field] if result else "--"
+
+    stories.append({
+        "id": 7,
+        "title": f"New technology rules at local high school causes {story8_values['emotion']} in students, leads to walkout.",
+        "values": story8_values,
+    })
+
+    return render(request, 'posts/generated_stories.html', {'stories': stories})
 
 def fillin_detail_view(request, idname):
     entry = get_object_or_404(fillInBlanks_1, idname=idname)
