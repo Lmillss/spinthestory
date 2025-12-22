@@ -283,8 +283,7 @@
         <article class="article-container">
             <h2>{{ story.title }}</h2>
 
-            {% include "posts/stories/story_"|add:story.id|stringformat:"s"|add:".html"
-            with values=story.values %}
+           {% include "posts/stories/story_"|add:story.id|stringformat:"s"|add:".html" with form=story.values %}
         </article>
     {% endfor %}
 
