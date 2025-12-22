@@ -141,7 +141,6 @@ def fill_in_blanks_generated(request):
     'name_1',
     'name_2',
     'vegetable',
-    'ex_monarchy',
     'social_media_1',
     'social_media_2'
     ]
