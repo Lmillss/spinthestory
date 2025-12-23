@@ -280,11 +280,14 @@
 
 
     {% for story in stories %}
-        <article class="article-container">
-            <h2>{{ story.title }}</h2>
-
-           {% include "posts/stories/story_"|add:story.id|stringformat:"s"|add:".html" with form=story.values %}
-        </article>
+        {% with id_str=story.id|stringformat:"s" %}
+            {% with template_path="posts/stories/story_"|add:id_str|add:".html" %}
+                <article class="article-container">
+                    <h2>{{ story.title }}</h2>
+                    {% include template_path with form=story.values %}
+                </article>
+            {% endwith %}
+        {% endwith %}
     {% endfor %}
 
 </body>
