@@ -14,7 +14,28 @@
             margin: 0;
             padding: 0;
         }
+        .top-story-container {
+            max-width: 1000px;
+            margin: 50px auto 80px auto;
+            padding: 50px;
+            background: #fef9e7; /* soft highlight background */
+            border: 2px solid #f1c40f; /* golden border for emphasis */
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
 
+        .top-story-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #d68910; /* golden heading */
+        }
+
+        .top-story-container h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #222;
+        }
         .article-container {
             max-width: 1000px;
             margin: 40px auto;
@@ -284,19 +305,25 @@
     </nav>
 
 
-    {% for story in stories %}
+    {% if stories %}
+        {% with top_story=stories.0 %}
+            <div class="top-story-container">
+                <h1>Today's Top Story</h1>
+                <h2>{{ top_story.title }}</h2>
+                {% with id_str=top_story.id|stringformat:"s" %}
+                    {% with template_path="posts/stories/story_"|add:id_str|add:".html" %}
+                        {% include template_path with form=top_story.values %}
+                    {% endwith %}
+                {% endwith %}
+            </div>
+        {% endwith %}
+    {% endif %}
+
+    {% for story in stories|slice:"1:" %}
         {% with id_str=story.id|stringformat:"s" %}
             {% with template_path="posts/stories/story_"|add:id_str|add:".html" %}
                 <article class="article-container">
-                    <h2>{{ story.title }}</h2>
                     {% include template_path with form=story.values %}
-                
-                    <h2>
-                        <span style="font-size: 0.6em; color: #777;">
-                            ({{ story.submission_count }} interactions)
-                        </span>
-                    </h2>
-
                 </article>
             {% endwith %}
         {% endwith %}
