@@ -14,27 +14,34 @@
             margin: 0;
             padding: 0;
         }
-        .top-story-container {
-            max-width: 1000px;
-            margin: 40px auto;
+       .top-story-wrapper {
+            max-width: 1100px;
+            margin: 50px auto;
             padding: 40px;
-            background: #fef9e7; 
-            border: 2px solid #f1c40f; 
-            border-radius: 8px;
+            background-color: #fff8dc;  /* subtle highlight color */
+            border: 3px solid #f1c40f;  /* golden border to make it stand out */
+            border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
-        .top-story-container h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #d68910; /* golden heading */
+        .top-story-wrapper h1 {
+            font-size: 2.8em;
+            color: #d68910;  /* golden heading */
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .top-story-container h2 {
-            font-size: 2em;
-            margin-bottom: 30px;
-            color: #222;
+        .top-story-article {
+            margin-top: 20px;
         }
+
+        /* Keep float clearing for the top story article */
+        .top-story-article article.article-container::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
         .article-container {
             max-width: 1000px;
             margin: 40px auto;
@@ -306,14 +313,17 @@
 
     {% if stories %}
         {% with top_story=stories.0 %}
-            <div class="top-story-container">
+            <div class="top-story-wrapper">
                 <h1>Today's Top Story</h1>
-                <h2>{{ top_story.title }}</h2>
-                {% with id_str=top_story.id|stringformat:"s" %}
-                    {% with template_path="posts/stories/story_"|add:id_str|add:".html" %}
-                        {% include template_path with form=top_story.values %}
+                <div class="top-story-article">
+                    {% with id_str=top_story.id|stringformat:"s" %}
+                        {% with template_path="posts/stories/story_"|add:id_str|add:".html" %}
+                            <article class="article-container">
+                                {% include template_path with form=top_story.values %}
+                            </article>
+                        {% endwith %}
                     {% endwith %}
-                {% endwith %}
+                </div>
             </div>
         {% endwith %}
     {% endif %}
