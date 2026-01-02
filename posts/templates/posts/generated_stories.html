@@ -285,6 +285,13 @@
                 <article class="article-container">
                     <h2>{{ story.title }}</h2>
                     {% include template_path with form=story.values %}
+                
+                    <h2>
+                        <span style="font-size: 0.6em; color: #777;">
+                            ({{ story.submission_count }} interactions)
+                        </span>
+                    </h2>
+
                 </article>
             {% endwith %}
         {% endwith %}

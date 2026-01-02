@@ -9,6 +9,16 @@ from django.views.decorators.csrf import csrf_exempt
 import myproject.views as views
 # Create your views here.
 
+STORY_MODELS = {
+    1: 'fillInBlanks_1',
+    2: 'fillInBlanks_2',
+    3: 'fillInBlanks_3',
+    4: 'fillInBlanks_4',
+    5: 'fillInBlanks_5',
+    6: 'fillInBlanks_6',
+    7: 'fillInBlanks_8'
+}
+
 def send_email_url(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -44,6 +54,9 @@ def most_common(model, field):
         .first()
     )
 
+def unique_submission_count(model):
+    return model.objects.values('idname').distinct().count()
+
 def fill_in_blanks_generated(request):
     stories = []
 
@@ -63,6 +76,7 @@ def fill_in_blanks_generated(request):
         "id": 1,
         "title": f"{story1_values['emotion_1']} on Election Night!",
         "values": story1_values,
+        "submission_count": unique_submission_count(fillInBlanks_1),
         })
     
     story2_fields = [
@@ -80,6 +94,7 @@ def fill_in_blanks_generated(request):
         "id": 2,
         "title": f"Invasion in {story2_values['country_1']}!",
         "values": story2_values,
+        "submission_count": unique_submission_count(fillInBlanks_2),
         })
     
     story3_fields = [
@@ -107,6 +122,7 @@ def fill_in_blanks_generated(request):
         "id": 3,
         "title": f"{story3_values['natural_disaster'].title()} in South Carolina Leaves Town Reeling, Citizens Asking Questions.",
         "values": story3_values,
+        "submission_count": unique_submission_count(fillInBlanks_3),
     })
 
     story4_fields = [
@@ -132,6 +148,7 @@ def fill_in_blanks_generated(request):
         "id": 4,
         "title": f"{story4_values['sport'].title()} Star, Zack “The Snack” Richards Diagnosed With Essential Tremor; Is {story4_values['brand'].title()} To Blame?",
         "values": story4_values,
+        "submission_count": unique_submission_count(fillInBlanks_4),
     })
     story5_fields = [
     'sporting_event',
@@ -156,8 +173,10 @@ def fill_in_blanks_generated(request):
             f"Illegal {story5_values['sporting_event'].title()} Gambling Ring Connections Drawn Between "
             f"Local Gardening Store, {story5_values['government_role'].title()} of "
             f"{story5_values['monarchal_country'].title()}."
+            
         ),
         "values": story5_values,
+        "submission_count": unique_submission_count(fillInBlanks_5),
     })
 
     story6_fields = [
@@ -182,6 +201,7 @@ def fill_in_blanks_generated(request):
         "id": 6,
         "title": f"Fraternity members hold a charity run, {story6_values['emotion']} the senior community about the splash of color.",
         "values": story6_values,
+        "submission_count": unique_submission_count(fillInBlanks_6),
     })
 
     story8_fields = [   
@@ -205,6 +225,7 @@ def fill_in_blanks_generated(request):
         "id": 7,
         "title": f"New technology rules at local high school causes {story8_values['emotion']} in students, leads to walkout.",
         "values": story8_values,
+        "submission_count": unique_submission_count(fillInBlanks_8),
     })
 
     return render(request, 'posts/generated_stories.html', {'stories': stories})
