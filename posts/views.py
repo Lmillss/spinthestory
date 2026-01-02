@@ -55,7 +55,7 @@ def most_common(model, field):
     )
 
 def unique_submission_count(model):
-    return model.objects.values('idname').distinct().count()
+    return int(model.objects.values('idname').distinct().count())
 
 def fill_in_blanks_generated(request):
     stories = []
@@ -227,6 +227,11 @@ def fill_in_blanks_generated(request):
         "values": story8_values,
         "submission_count": unique_submission_count(fillInBlanks_8),
     })
+
+    stories.sort(
+        key=lambda story: story["submission_count"],
+        reverse=True
+    )
 
     return render(request, 'posts/generated_stories.html', {'stories': stories})
 
