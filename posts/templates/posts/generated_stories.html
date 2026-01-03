@@ -36,6 +36,33 @@
             border-radius: 2px;
         }
 
+        .top-story-wrapper { 
+            max-width: 1100px; 
+            margin: 50px auto; 
+            padding: 40px; 
+            background-color: #fff8dc;  
+            border: 3px solid #f1c40f; 
+            border-radius: 12px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1); 
+        } 
+
+        .top-story-wrapper h1 { 
+            font-size: 2.8em; 
+            color: #d68910;
+            text-align: center; 
+            margin-bottom: 30px; 
+        } 
+
+        .top-story-article { 
+            margin-top: 20px; 
+        }  
+
+        .top-story-article article.article-container::after { 
+            content: ""; 
+            display: block; 
+            clear: both; 
+        }
+
         
         .article-container {
             max-width: 1000px;
@@ -310,30 +337,31 @@
     </nav>
 
 
-    {% if stories %}
-        {% with top_story=stories.0 %}
-            <div class="top-story-banner">
-                <h2>Today’s Top Story</h2>
-            </div>
-
-            {% with id_str=top_story.id|stringformat:"s" %}
-                {% with template_path="posts/stories/story_"|add:id_str|add:".html" %}
-                    <article class="article-container top-story">
-                        {% include template_path with form=top_story.values %}
-                    </article>
-                {% endwith %}
-            {% endwith %}
-        {% endwith %}
-    {% endif %}
-
-    {% for story in stories|slice:"1:" %}
-        {% with id_str=story.id|stringformat:"s" %}
-            {% with template_path="posts/stories/story_"|add:id_str|add:".html" %}
-                <article class="article-container">
-                    {% include template_path with form=story.values %}
-                </article>
-            {% endwith %}
-        {% endwith %}
+    {% if stories %} 
+        {% with top_story=stories.0 %} 
+            <div class="top-story-wrapper"> 
+                <h1>Today's Top Story</h1> 
+                <div class="top-story-article"> 
+                    {% with id_str=top_story.id|stringformat:"s" %} 
+                        {% with template_path="posts/stories/story_"|add:id_str|add:".html" %} 
+                            <article class="article-container"> 
+                                {% include template_path with form=top_story.values %} 
+                            </article> 
+                        {% endwith %} 
+                    {% endwith %} 
+                </div> 
+            </div> 
+        {% endwith %} 
+    {% endif %} 
+    
+    {% for story in stories|slice:"1:" %} 
+        {% with id_str=story.id|stringformat:"s" %} 
+            {% with template_path="posts/stories/story_"|add:id_str|add:".html" %} 
+                <article class="article-container"> 
+                    {% include template_path with form=story.values %} 
+                </article> 
+            {% endwith %} 
+        {% endwith %} 
     {% endfor %}
 
 </body>
