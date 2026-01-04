@@ -56,16 +56,17 @@
             margin-bottom: 30px;
         }
 
-        .top-story-badge {
-            display: inline-block;
-            font-size: 0.85em;
-            letter-spacing: 0.12em;
-            font-weight: bold;
+        .submission-badge {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: #d68910; /* gold */
             color: #fff;
-            background-color: #d68910;
-            padding: 6px 14px;
-            border-radius: 999px;
-            margin-bottom: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
         .top-story-header h1 {
@@ -90,6 +91,7 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: relative;
         }
         .article-container::after {
             content: "";
@@ -122,6 +124,10 @@
             background-color: #000000ff;
             margin: 0.4em auto 0 auto; 
             border-radius: 2px;
+        }
+
+        .top-story-wrapper h1::after {
+            background-color: #d68910; /* gold */
         }
 
         .top-story-wrapper > h1::after {
@@ -399,6 +405,9 @@
                         {% with template_path="posts/stories/story_"|add:id_str|add:".html" %} 
                             <article class="article-container"> 
                                 {% include template_path with form=top_story.values %} 
+                                 <div class="submission-badge">
+                                    {{ story.submission_count }} Impressions
+                                </div>
                             </article> 
                         {% endwith %} 
                     {% endwith %} 
