@@ -389,10 +389,12 @@
 
     {% if stories %} 
         {% with top_story=stories.0 %} 
-            <div class="top-story-header">
-                <span class="top-story-badge">FEATURED</span>
-                <h1>Today’s Top Story</h1>
-            </div>
+            <div class="top-story-wrapper">
+                <div class="top-story-header">
+                    <span class="top-story-badge">FEATURED</span>
+                    <h1>Today’s Top Story</h1>
+                </div>
+                <div class="top-story-article">
                     {% with id_str=top_story.id|stringformat:"s" %} 
                         {% with template_path="posts/stories/story_"|add:id_str|add:".html" %} 
                             <article class="article-container"> 
