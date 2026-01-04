@@ -403,9 +403,9 @@
                     {% with id_str=top_story.id|stringformat:"s" %} 
                         {% with template_path="posts/stories/story_"|add:id_str|add:".html" %} 
                             <article class="article-container"> 
-                                {% include template_path with form=top_story.values submission_count=top_story.submission_count %} 
+                                {% include template_path with form=top_story.values %} 
                                  <div class="submission-badge">
-                                    {{ submission_count }} Impressions
+                                    {{ top_story.submission_count }} Impressions
                                  </div>
                             </article> 
                         {% endwith %} 
@@ -419,9 +419,9 @@
         {% with id_str=story.id|stringformat:"s" %} 
             {% with template_path="posts/stories/story_"|add:id_str|add:".html" %} 
                 <article class="article-container"> 
-                    {% include template_path with form=story.values submission_count=top_story.submission_count %} 
+                    {% include template_path with form=story.values %} 
                     <div class="submission-badge">
-                        {{ submission_count }} Impressions
+                        {{ story.submission_count }} Impressions
                     </div>
                 </article> 
             {% endwith %} 
