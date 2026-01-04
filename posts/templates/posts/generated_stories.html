@@ -397,7 +397,6 @@
         {% with top_story=stories.0 %} 
             <div class="top-story-wrapper">
                 <div class="top-story-header">
-                    <span class="top-story-badge">FEATURED</span>
                     <h1>Today’s Top Story</h1>
                 </div>
                 <div class="top-story-article">
@@ -406,8 +405,8 @@
                             <article class="article-container"> 
                                 {% include template_path with form=top_story.values %} 
                                  <div class="submission-badge">
-                                    {{ story.submission_count }} Impressions
-                                </div>
+                                    {{ submission_count }} Impressions
+                                 </div>
                             </article> 
                         {% endwith %} 
                     {% endwith %} 
@@ -421,6 +420,9 @@
             {% with template_path="posts/stories/story_"|add:id_str|add:".html" %} 
                 <article class="article-container"> 
                     {% include template_path with form=story.values %} 
+                    <div class="submission-badge">
+                        {{ submission_count }} Impressions
+                    </div>
                 </article> 
             {% endwith %} 
         {% endwith %} 
