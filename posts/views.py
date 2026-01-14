@@ -52,14 +52,11 @@ def fill_in_blanks_1(request):
             instance = form.save()
 
             return redirect(
-                reverse(
-                    "posts:story_detail",
-                    kwargs={
-                        "story_slug": "polling_panic",
-                        "idname": instance.idname,
-                    }
-                )
+                "posts:story_detail",
+                story_slug="polling_panic",
+                idname=instance.idname,
             )
+            
         else:
             return HttpResponse("Form is not valid", status=400)
 
