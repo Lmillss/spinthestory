@@ -2,3 +2,5 @@ django
 gunicorn
 psycopg2-binary
 whitenoise
+boto3 
+django-ses
