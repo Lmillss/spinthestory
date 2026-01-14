@@ -22,11 +22,12 @@ STORY_MODELS = {
 def send_email_url(request):
     if request.method == "POST":
         email = request.POST.get("email")
+        print(email)
         story_url = request.build_absolute_uri()  
         send_mail(
-            "Your Spin The Story Report",
+            "Your Spin The Story Story",
             f"Here's your generated story: {story_url}",
-            "noreply@yourdomain.com",
+            "info@spinthestory.net",
             [email],
             fail_silently=False,
         )
