@@ -6,6 +6,8 @@ from django.db.models import Count
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+from django.http import Http404
 import myproject.views as views
 # Create your views here.
 
@@ -19,11 +21,21 @@ STORY_MODELS = {
     7: 'fillInBlanks_8'
 }
 
+STORY_MODEL_MAP = {
+    "polling_panic": fillInBlanks_1,
+    "unchecked_aggression": fillInBlanks_2,
+    "unnatural_disaster": fillInBlanks_3,
+    "bad_influence": fillInBlanks_4,
+    "gutsy_gamble": fillInBlanks_5,
+    "fundraising_fiasco": fillInBlanks_6,
+    "technology_termoil": fillInBlanks_8,
+}
+
 def send_email_url(request):
     if request.method == "POST":
         email = request.POST.get("email")
         print(email)
-        story_url = request.build_absolute_uri()  
+        story_url = request.build_absolute_url()  
         send_mail(
             "Your Spin The Story Story",
             f"Here's your generated story: {story_url}",
@@ -37,8 +49,17 @@ def fill_in_blanks_1(request):
     if request.method == "POST":
         form = forms.FillInBlanksForm(request.POST)
         if form.is_valid():
-            form.save()  
-            return render(request, 'posts/post_page.html', {'form': form.cleaned_data})
+            instance = form.save()
+
+            return redirect(
+                reverse(
+                    "posts:story_detail",
+                    kwargs={
+                        "story_slug": "polling_panic",
+                        "idname": instance.idname,
+                    }
+                )
+            )
         else:
             return HttpResponse("Form is not valid", status=400)
 
@@ -236,9 +257,23 @@ def fill_in_blanks_generated(request):
 
     return render(request, 'posts/generated_stories.html', {'stories': stories})
 
-def fillin_detail_view(request, idname):
-    entry = get_object_or_404(fillInBlanks_1, idname=idname)
-    return render(request, 'fillin_detail.html', {'entry': entry})
+
+def story_detail_view(request, story_slug, idname):
+    model = STORY_MODEL_MAP.get(story_slug)
+
+    if not model:
+        raise Http404("Story not found")
+
+    submission = get_object_or_404(model, idname=idname)
+
+    return render(
+        request,
+        "posts/story_detail.html",
+        {
+            "story_slug": story_slug,
+            "submission": submission,
+        }
+    )
 
 def fill_in_blanks_2(request):
     if request.method == "POST":
