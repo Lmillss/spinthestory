@@ -24,7 +24,7 @@ STORY_MODELS = {
 STORY_CONFIG = {
     "polling_panic": {
         "model": fillInBlanks_1,
-        "template": "posts/post_page_1.html",
+        "template": "posts/post_page.html",
     },
     "unchecked_aggression": {
         "model": fillInBlanks_2,
