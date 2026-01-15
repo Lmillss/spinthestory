@@ -314,6 +314,7 @@
         <h2>Send This Story to Your Email</h2>
         <form action="{% url 'posts:send_email_url' %}" method="post">
             {% csrf_token %}
+            <input type="hidden" name="story_url" value="{{ request.build_absolute_uri }}">
             <input type="email" name="email" placeholder="Enter your email" required>
             <button type="submit">Send</button>
         </form>

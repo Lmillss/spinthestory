@@ -21,24 +21,45 @@ STORY_MODELS = {
     7: 'fillInBlanks_8'
 }
 
-STORY_MODEL_MAP = {
-    "polling_panic": fillInBlanks_1,
-    "unchecked_aggression": fillInBlanks_2,
-    "unnatural_disaster": fillInBlanks_3,
-    "bad_influence": fillInBlanks_4,
-    "gutsy_gamble": fillInBlanks_5,
-    "fundraising_fiasco": fillInBlanks_6,
-    "technology_termoil": fillInBlanks_8,
+STORY_CONFIG = {
+    "polling_panic": {
+        "model": fillInBlanks_1,
+        "template": "posts/post_page_1.html",
+    },
+    "unchecked_aggression": {
+        "model": fillInBlanks_2,
+        "template": "posts/post_page_2.html",
+    },
+    "unnatural_disaster": {
+        "model": fillInBlanks_3,
+        "template": "posts/post_page_3.html",
+    },
+    "bad_influence": {
+        "model": fillInBlanks_4,
+        "template": "posts/post_page_4.html",
+    },
+    "gutsy_gamble": {
+        "model": fillInBlanks_5,
+        "template": "posts/post_page_5.html",
+    },
+    "fundraising_fiasco": {
+        "model": fillInBlanks_6,
+        "template": "posts/post_page_6.html",
+    },
+    "technology_turmoil": {
+        "model": fillInBlanks_8,
+        "template": "posts/post_page_8.html",
+    },
 }
 
 def send_email_url(request):
     if request.method == "POST":
         email = request.POST.get("email")
-        print(email)
-        story_url = request.build_absolute_url()  
+        story_url = request.POST.get("story_url")
+
         send_mail(
             "Your Spin The Story Story",
-            f"Here's your generated story: {story_url}",
+            f"Here's your generated story:\n\n{story_url}",
             "info@spinthestory.net",
             [email],
             fail_silently=False,
@@ -256,18 +277,21 @@ def fill_in_blanks_generated(request):
 
 
 def story_detail_view(request, story_slug, idname):
-    model = STORY_MODEL_MAP.get(story_slug)
+    story = STORY_CONFIG.get(story_slug)
 
-    if not model:
+    if not story:
         raise Http404("Story not found")
+
+    model = story["model"]
+    template = story["template"]
 
     submission = get_object_or_404(model, idname=idname)
 
     return render(
         request,
-        "posts/story_detail.html",
+        template,
         {
-            "story_slug": story_slug,
+            "form": submission,
             "submission": submission,
         }
     )
