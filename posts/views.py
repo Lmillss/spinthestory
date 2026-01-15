@@ -58,7 +58,9 @@ def send_email_url(request):
         story_url = request.POST.get("story_url")
 
         send_mail(
-            "Thank you for checking out Spin the Story!",
+            "Spin The Story",
+            "Thank you for checking out Spin the Story!" 
+            "Be sure to check out the rest of the online exhibits at the MSU Gallery \n" 
             f"Here's your generated story:\n\n{story_url}",
             "info@spinthestory.net",
             [email],
@@ -300,8 +302,13 @@ def fill_in_blanks_2(request):
     if request.method == "POST":
         form = forms.FillInTheBlanks2(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'posts/post_page_2.html', {'form': form.cleaned_data})
+            instance = form.save()
+
+            return redirect(
+                "posts:story_detail",
+                story_slug="unchecked_aggression",
+                idname=instance.idname,
+            )
         else:
             return HttpResponse("Form is not valid", status=400)
 
@@ -314,8 +321,13 @@ def fill_in_blanks_3(request):
     if request.method == "POST":
         form = forms.FillInTheBlanks3(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'posts/post_page_3.html', {'form': form.cleaned_data})
+            instance = form.save()
+
+            return redirect(
+                "posts:story_detail",
+                story_slug="unnatural_disaster",
+                idname=instance.idname,
+            )
         else:
             return HttpResponse("Form is not valid", status=400)
     
@@ -327,8 +339,13 @@ def fill_in_blanks_4(request):
     if request.method == "POST":
         form = forms.FillInTheBlanks4(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'posts/post_page_4.html', {'form': form.cleaned_data})
+            instance = form.save()
+
+            return redirect(
+                "posts:story_detail",
+                story_slug="bad_influence",
+                idname=instance.idname,
+            )
         else:
             return HttpResponse("Form is not valid", status=400)
     
@@ -340,11 +357,15 @@ def fill_in_blanks_5(request):
     if request.method == "POST":
         form = forms.FillInTheBlanks5(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'posts/post_page_5.html', {'form': form.cleaned_data})
+            instance = form.save()
+
+            return redirect(
+                "posts:story_detail",
+                story_slug="gutsy_gamble",
+                idname=instance.idname,
+            )
         else:
             return HttpResponse("Form is not valid", status=400)
-    
     else:
         form = forms.FillInTheBlanks5()
     return render(request, 'posts/story_5.html', {'form': form })
@@ -353,8 +374,13 @@ def fill_in_blanks_6(request):
     if request.method == "POST":
         form = forms.FillInTheBlanks6(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'posts/post_page_6.html', {'form': form.cleaned_data})
+            instance = form.save()
+
+            return redirect(
+                "posts:story_detail",
+                story_slug="fundraising_fiasco",
+                idname=instance.idname,
+            )
         else:
             return HttpResponse("Form is not valid", status=400)
     
@@ -366,8 +392,13 @@ def fill_in_blanks_8(request):
     if request.method == "POST":
         form = forms.FillInTheBlanks8(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'posts/post_page_8.html', {'form': form.cleaned_data})
+            instance = form.save()
+
+            return redirect(
+                "posts:story_detail",
+                story_slug="technology_turmoil",
+                idname=instance.idname,
+            )
         else:
             return HttpResponse("Form is not valid", status=400)
     
