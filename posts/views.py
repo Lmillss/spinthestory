@@ -58,7 +58,7 @@ def send_email_url(request):
         story_url = request.POST.get("story_url")
 
         send_mail(
-            "Your Spin The Story Story",
+            "Thank you for checking out Spin the Story!",
             f"Here's your generated story:\n\n{story_url}",
             "info@spinthestory.net",
             [email],
